@@ -42,11 +42,13 @@ body {
   border-width: 0;
 }
 
+/* ===== MOBILE-FIRST (podrazumevano) ===== */
 .app-container {
   width: 100%;
-  max-width: min(90rem, 95vw);   /* 1440px ili 95% viewporta */
+  max-width: min(90rem, 95vw);
   min-height: 100vh;
   display: flex;
+  flex-direction: column;   /* mobilno: kolona */
 }
 
 .left-panel {
@@ -281,7 +283,7 @@ input.invalid-border:focus {
 
 @media (max-width: 64em) {
   .app-container {
-    flex-direction: column;
+     flex-direction: row;    /* desktop: red */
   }
   .left-panel {
     width: 100%;
