@@ -268,7 +268,7 @@ input.invalid-border:focus {
 }
 
 .element-hidden {
-  display: none !important;
+  display: none ;
 }
 
 @media (max-width: 64em) {
