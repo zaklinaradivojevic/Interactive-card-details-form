@@ -271,7 +271,7 @@ input.invalid-border:focus {
   display: none !important;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 64em) {
   .app-container {
     flex-direction: column;
   }
