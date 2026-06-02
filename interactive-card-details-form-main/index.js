@@ -15,7 +15,6 @@ const displayCVC = document.getElementById('display-cvc');
 
 const btnContinue = document.getElementById('btn-continue');
 
-// Pomoćna funkcija za formatiranje broja kartice
 function formatCardNumber(value) {
   const digits = value.replace(/\D/g, '');
   const parts = [];
@@ -25,14 +24,13 @@ function formatCardNumber(value) {
   return parts.join(' ');
 }
 
-// Real-time ažuriranje
 inputName.addEventListener('input', () => {
   const val = inputName.value.trim();
   displayName.textContent = val ? val.toUpperCase() : 'JANE APPLESEED';
 });
 
 inputNumber.addEventListener('input', (e) => {
-  let formatted = formatCardNumber(e.target.value);
+  const formatted = formatCardNumber(e.target.value);   // let → const
   e.target.value = formatted;
   displayNumber.textContent = formatted || '0000 0000 0000 0000';
 });
@@ -47,12 +45,11 @@ inputMM.addEventListener('input', updateDateDisplay);
 inputYY.addEventListener('input', updateDateDisplay);
 
 inputCVC.addEventListener('input', (e) => {
-  let val = e.target.value.replace(/\D/g, '').slice(0, 3);
+  const val = e.target.value.replace(/\D/g, '').slice(0, 3);   // let → const
   e.target.value = val;
   displayCVC.textContent = val || '000';
 });
 
-// Greške
 function setError(inputs, errorSpan, message) {
   errorSpan.textContent = message;
   if (Array.isArray(inputs)) {
@@ -71,12 +68,10 @@ function clearError(inputs, errorSpan) {
   }
 }
 
-// Validacija
 formElement.addEventListener('submit', (e) => {
   e.preventDefault();
-  let isValid = true;
+  let isValid = true;   // ovo se menja, ostaje let
 
-  // Ime
   if (!inputName.value.trim()) {
     setError(inputName, document.getElementById('error-name'), "Can't be blank");
     isValid = false;
@@ -84,7 +79,6 @@ formElement.addEventListener('submit', (e) => {
     clearError(inputName, document.getElementById('error-name'));
   }
 
-  // Broj kartice
   const rawNumber = inputNumber.value.replace(/\s/g, '');
   if (!rawNumber) {
     setError(inputNumber, document.getElementById('error-number'), "Can't be blank");
@@ -96,7 +90,6 @@ formElement.addEventListener('submit', (e) => {
     clearError(inputNumber, document.getElementById('error-number'));
   }
 
-  // Datum
   const mm = inputMM.value.trim();
   const yy = inputYY.value.trim();
   const mmNum = parseInt(mm, 10);
@@ -112,7 +105,6 @@ formElement.addEventListener('submit', (e) => {
     clearError([inputMM, inputYY], errorDateSpan);
   }
 
-  // CVC
   const cvc = inputCVC.value.trim();
   if (!cvc) {
     setError(inputCVC, document.getElementById('error-cvc'), "Can't be blank");
@@ -130,7 +122,6 @@ formElement.addEventListener('submit', (e) => {
   }
 });
 
-// Continue dugme
 btnContinue.addEventListener('click', () => {
   formElement.reset();
   displayName.textContent = 'JANE APPLESEED';
@@ -144,4 +135,6 @@ btnContinue.addEventListener('click', () => {
   document.querySelectorAll('.error-text').forEach(span => span.textContent = '');
   document.querySelectorAll('.invalid-border').forEach(input => input.classList.remove('invalid-border'));
 });
+
+  
 
