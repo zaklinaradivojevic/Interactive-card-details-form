@@ -5,13 +5,17 @@
   --light-grayish-violet: hsl(270, 3%, 87%);
   --dark-grayish-violet: hsl(279, 6%, 55%);
   --very-dark-violet: hsl(278, 68%, 11%);
-  --body-font-size: 18px;
+  --body-font-size: 1.125rem;   /* 18px / 16px = 1.125rem */
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  font-size: 100%; /* 16px osnova za rem */
 }
 
 body {
@@ -24,21 +28,22 @@ body {
   justify-content: center;
   align-items: center;
 }
-/* Pristupačna skrivena klasa – vizuelno nevidljiva, ali dostupna čitačima ekrana */
+
 .sr-only {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: 0.0625rem;      /* 1px */
+  height: 0.0625rem;
   padding: 0;
-  margin: -1px;
+  margin: -0.0625rem;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
 }
+
 .app-container {
   width: 100%;
-  max-width: 1440px;
+  max-width: 90rem;       /* 1440px */
   min-height: 100vh;
   display: flex;
 }
@@ -53,19 +58,19 @@ body {
 
 .cards-container {
   position: absolute;
-  right: -140px;
+  right: -8.75rem;        /* -140px */
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 2rem;              /* 32px */
 }
 
 .card-front, .card-back {
-  width: 447px;
-  height: 245px;
-  border-radius: 12px;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15);
+  width: 27.9375rem;      /* 447px */
+  height: 15.3125rem;     /* 245px */
+  border-radius: 0.75rem; /* 12px */
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.15); /* 24px, 48px */
   color: var(--neutral-white);
   position: relative;
 }
@@ -79,61 +84,61 @@ body {
 .card-back {
   background-image: url('https://raw.githubusercontent.com/zaklinaradivojevic/Interactive-card-details-form/main/interactive-card-details-form-main/images/bg-card-back.png');
   background-size: cover;
-  margin-left: 94px;
+  margin-left: 5.875rem;   /* 94px */
 }
 
 .circle {
-  width: 45px;
-  height: 45px;
+  width: 2.8125rem;       /* 45px */
+  height: 2.8125rem;
   background-color: var(--neutral-white);
-  top: 28px;
-  left: 32px;
+  top: 1.75rem;           /* 28px */
+  left: 2rem;             /* 32px */
   position: absolute;
   border-radius: 50%;
 }
 
 .circle1 {
-  width: 21px;
-  height: 21px;
-  border: 1px solid var(--neutral-white);
-  top: 40px;
-  left: 93px;
+  width: 1.3125rem;       /* 21px */
+  height: 1.3125rem;
+  border: 0.0625rem solid var(--neutral-white); /* 1px → 0.0625rem */
+  top: 2.5rem;            /* 40px */
+  left: 5.8125rem;        /* 93px */
   position: absolute;
   border-radius: 50%;
 }
 
 .card-numer {
-  bottom: 84px;
-  left: 32px;
-  font-size: 28px;
-  letter-spacing: 3.5px;
+  bottom: 5.25rem;        /* 84px */
+  left: 2rem;             /* 32px */
+  font-size: 1.75rem;     /* 28px */
+  letter-spacing: 0.21875rem; /* 3.5px */
   position: absolute;
 }
 
 .card-name {
-  bottom: 28px;
-  left: 32px;
-  font-size: 14px;
+  bottom: 1.75rem;        /* 28px */
+  left: 2rem;             /* 32px */
+  font-size: 0.875rem;    /* 14px */
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 0.125rem; /* 2px */
   position: absolute;
 }
 
 .card-date {
-  bottom: 28px;
-  right: 32px;
-  font-size: 14px;
+  bottom: 1.75rem;        /* 28px */
+  right: 2rem;            /* 32px */
+  font-size: 0.875rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 0.125rem;
   position: absolute;
 }
 
 .card-back-num {
   position: absolute;
-  right: 56px;
-  top: 110px;
-  font-size: 14px;
-  letter-spacing: 2px;
+  right: 3.5rem;          /* 56px */
+  top: 6.9375rem;         /* 111px */
+  font-size: 0.875rem;
+  letter-spacing: 0.125rem;
 }
 
 .right-panel {
@@ -141,12 +146,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 140px;
+  padding-left: 8.75rem;   /* 140px */
 }
 
 .card-form, .success-view {
   width: 100%;
-  max-width: 381px;
+  max-width: 23.8125rem;   /* 381px */
   display: flex;
   flex-direction: column;
 }
@@ -154,26 +159,26 @@ body {
 .field-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 22px;
+  margin-bottom: 1.375rem; /* 22px */
 }
 
 label {
-  font-size: 12px;
+  font-size: 0.75rem;      /* 12px */
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 0.125rem;
   color: var(--very-dark-violet);
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;   /* 8px */
 }
 
 input {
   width: 100%;
-  padding: 12px 16px;
+  padding: 0.75rem 1rem;    /* 12px 16px */
   font-size: var(--body-font-size);
   font-family: inherit;
   font-weight: 500;
   background-color: var(--neutral-white);
-  border: 1px solid var(--light-grayish-violet);
-  border-radius: 8px;
+  border: 0.0625rem solid var(--light-grayish-violet); /* 1px → 0.0625rem */
+  border-radius: 0.5rem;    /* 8px */
   outline: none;
   color: var(--very-dark-violet);
   transition: border-color 0.15s ease-in-out;
@@ -189,28 +194,28 @@ input:hover {
 }
 
 input:focus {
-  border: 1px solid transparent;
+  border: 0.0625rem solid transparent;
   background: linear-gradient(var(--neutral-white), var(--neutral-white)) padding-box, 
               var(--active-gradient) border-box;
 }
 
 input.invalid-border,
 input.invalid-border:focus {
-  border: 1px solid var(--red-error) !important;
-  background: var(--neutral-white) !important;
+  border: 0.0625rem solid var(--red-error);
+  background: var(--neutral-white);
 }
 
 .error-text {
   color: var(--red-error);
-  font-size: 11px;
-  margin-top: 6px;
-  min-height: 14px;
+  font-size: 0.6875rem;     /* 11px */
+  margin-top: 0.375rem;     /* 6px */
+  min-height: 0.875rem;     /* 14px */
   display: block;
 }
 
 .multipart-row {
   display: flex;
-  gap: 20px;
+  gap: 1.25rem;             /* 20px */
 }
 
 .exp-group, .cvc-group {
@@ -219,20 +224,20 @@ input.invalid-border:focus {
 
 .dual-inputs {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;              /* 8px */
 }
 
 .action-btn {
   background-color: var(--very-dark-violet);
   color: var(--neutral-white);
   border: none;
-  border-radius: 8px;
-  padding: 15px;
+  border-radius: 0.5rem;
+  padding: 0.9375rem;       /* 15px */
   font-size: var(--body-font-size);
   font-family: inherit;
   cursor: pointer;
-  margin-top: 6px;
-  transition: opacity 0.15s ease-in-out;
+  margin-top: 0.375rem;     /* 6px */
+  transition: opacity 0.2s ease-in-out;
 }
 
 .action-btn:hover {
@@ -244,40 +249,40 @@ input.invalid-border:focus {
 }
 
 .success-icon-badge {
-  width: 80px;
-  height: 80px;
+  width: 5rem;              /* 80px */
+  height: 5rem;
   background: var(--active-gradient);
   border-radius: 50%;
   color: var(--neutral-white);
-  font-size: 32px;
-  line-height: 80px;
-  margin: 0 auto 35px auto;
+  font-size: 2rem;          /* 32px */
+  line-height: 5rem;
+  margin: 0 auto 2.1875rem auto; /* 35px */
 }
 
 .success-heading {
-  font-size: 28px;
+  font-size: 1.75rem;       /* 28px */
   text-transform: uppercase;
   color: var(--very-dark-violet);
-  letter-spacing: 3.5px;
-  margin-bottom: 16px;
+  letter-spacing: 0.21875rem;
+  margin-bottom: 1rem;      /* 16px */
 }
 
 .success-subtext {
   color: var(--dark-grayish-violet);
-  margin-bottom: 48px;
+  margin-bottom: 3rem;      /* 48px */
 }
 
 .element-hidden {
-  display: none ;
+  display: none;
 }
 
-@media (max-width: 64em) {
+@media (max-width: 64em) {   /* 1024px = 64em */
   .app-container {
     flex-direction: column;
   }
   .left-panel {
     width: 100%;
-    height: 240px;
+    height: 15rem;           /* 240px */
     background-image: url("https://raw.githubusercontent.com/zaklinaradivojevic/Interactive-card-details-form/main/interactive-card-details-form-main/images/bg-main-mobile.png");
   }
   .cards-container {
@@ -286,46 +291,47 @@ input.invalid-border:focus {
     top: 0;
     transform: none;
     width: 100%;
-    max-width: 375px;
+    max-width: 23.4375rem;   /* 375px */
     height: 100%;
     margin: 0 auto;
-    padding-top: 32px;
+    padding-top: 2rem;
   }
   .card-back {
     position: absolute;
-    top: 32px;
-    right: 16px;
+    top: 2rem;               /* 32px */
+    right: 1rem;             /* 16px */
     margin-left: 0;
     transform: scale(0.68);
     transform-origin: top right;
   }
   .card-front {
     position: absolute;
-    top: 124px;
-    left: 16px;
+    top: 7.75rem;            /* 124px */
+    left: 1rem;              /* 16px */
     transform: scale(0.68);
     transform-origin: top left;
     z-index: 20;
   }
   .right-panel {
     width: 100%;
-    padding: 110px 24px 44px 24px;
+    padding: 6.875rem 1.5rem 2.75rem 1.5rem; /* 110px 24px 44px */
   }
   .card-form, .success-view {
     max-width: 100%;
   }
 }
 
-/* ===== PRIDRUŽENA PRISTUPAČNOST: REDUKOVANO KRETANJE ===== */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+    scroll-behavior: auto;
   }
 }
 
  
+
+
