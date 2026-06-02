@@ -1,4 +1,4 @@
-// Gather Interface Hook Pointers
+// DOM elementi
 const formElement = document.getElementById('card-form');
 const successViewElement = document.getElementById('success-view');
 
@@ -10,127 +10,138 @@ const inputCVC = document.getElementById('card-cvc');
 
 const displayName = document.getElementById('display-name');
 const displayNumber = document.getElementById('display-number');
-const displayMM = document.getElementById('display-mm');
-const displayYY = document.getElementById('display-yy');
+const displayDate = document.getElementById('display-date');
 const displayCVC = document.getElementById('display-cvc');
 
 const btnContinue = document.getElementById('btn-continue');
 
-// --- Real-time Mirror Synchronization Functions ---
+// Pomoćna funkcija za formatiranje broja kartice
+function formatCardNumber(value) {
+  const digits = value.replace(/\D/g, '');
+  const parts = [];
+  for (let i = 0; i < digits.length && i < 16; i += 4) {
+    parts.push(digits.slice(i, i + 4));
+  }
+  return parts.join(' ');
+}
+
+// Real-time ažuriranje
 inputName.addEventListener('input', () => {
-  displayName.textContent = inputName.value ? inputName.value.toUpperCase() : "JANE APPLESEED";
+  const val = inputName.value.trim();
+  displayName.textContent = val ? val.toUpperCase() : 'JANE APPLESEED';
 });
 
 inputNumber.addEventListener('input', (e) => {
-  let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9E]/gi, ''); // Retains "101E" structure variant safely
-  // Space values sequentially out into blocks of 4
-  let structuredValue = value.match(/.{1,4}/g);
-  e.target.value = structuredValue ? structuredValue.join(' ') : '';
-  displayNumber.textContent = e.target.value ? e.target.value : "0000 0000 0000 0000";
+  let formatted = formatCardNumber(e.target.value);
+  e.target.value = formatted;
+  displayNumber.textContent = formatted || '0000 0000 0000 0000';
 });
 
-inputMM.addEventListener('input', () => {
-  displayMM.textContent = inputMM.value ? inputMM.value.padStart(2, '0') : "00";
+function updateDateDisplay() {
+  const mm = inputMM.value.padStart(2, '0').slice(0, 2);
+  const yy = inputYY.value.padStart(2, '0').slice(0, 2);
+  displayDate.textContent = `${mm}/${yy}`;
+}
+
+inputMM.addEventListener('input', updateDateDisplay);
+inputYY.addEventListener('input', updateDateDisplay);
+
+inputCVC.addEventListener('input', (e) => {
+  let val = e.target.value.replace(/\D/g, '').slice(0, 3);
+  e.target.value = val;
+  displayCVC.textContent = val || '000';
 });
 
-inputYY.addEventListener('input', () => {
-  displayYY.textContent = inputYY.value ? inputYY.value.padStart(2, '0') : "00";
-});
-
-inputCVC.addEventListener('input', () => {
-  displayCVC.textContent = inputCVC.value ? inputCVC.value : "000";
-});
-
-// --- Execution Validation Error Logic ---
-function throwError(inputs, displayTarget, textMessage) {
-  displayTarget.textContent = textMessage;
+// Greške
+function setError(inputs, errorSpan, message) {
+  errorSpan.textContent = message;
   if (Array.isArray(inputs)) {
-    inputs.forEach(targetNode => targetNode.classList.add('invalid-border'));
+    inputs.forEach(inp => inp.classList.add('invalid-border'));
   } else {
     inputs.classList.add('invalid-border');
   }
 }
 
-function clearError(inputs, displayTarget) {
-  displayTarget.textContent = "";
+function clearError(inputs, errorSpan) {
+  errorSpan.textContent = '';
   if (Array.isArray(inputs)) {
-    inputs.forEach(targetNode => targetNode.classList.remove('invalid-border'));
+    inputs.forEach(inp => inp.classList.remove('invalid-border'));
   } else {
     inputs.classList.remove('invalid-border');
   }
 }
 
-// --- Submit Submission Handler Validation ---
-formElement.addEventListener('submit', (event) => {
-  event.preventDefault();
-  let submissionIsValid = true;
+// Validacija
+formElement.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let isValid = true;
 
-  // 1. Holder Name Rule Validation
+  // Ime
   if (!inputName.value.trim()) {
-    throwError(inputName, document.getElementById('error-name'), "Can't be blank");
-    submissionIsValid = false;
+    setError(inputName, document.getElementById('error-name'), "Can't be blank");
+    isValid = false;
   } else {
     clearError(inputName, document.getElementById('error-name'));
   }
 
-  // 2. Card Number Rule Validation
-  const nakedNum = inputNumber.value.replace(/\s/g, '');
-  if (!inputNumber.value.trim()) {
-    throwError(inputNumber, document.getElementById('error-number'), "Can't be blank");
-    submissionIsValid = false;
-  } else if (!/^[0-9E]+$/i.test(nakedNum)) { // Adapts matching rule criteria safely to accommodate mixed values like "101E" 
-    throwError(inputNumber, document.getElementById('error-number'), "Wrong format, alphanumeric layout");
-    submissionIsValid = false;
-  } else if (nakedNum.length < 16) {
-    throwError(inputNumber, document.getElementById('error-number'), "Must contain exactly 16 values");
-    submissionIsValid = false;
+  // Broj kartice
+  const rawNumber = inputNumber.value.replace(/\s/g, '');
+  if (!rawNumber) {
+    setError(inputNumber, document.getElementById('error-number'), "Can't be blank");
+    isValid = false;
+  } else if (!/^\d{16}$/.test(rawNumber)) {
+    setError(inputNumber, document.getElementById('error-number'), "Must be 16 digits");
+    isValid = false;
   } else {
     clearError(inputNumber, document.getElementById('error-number'));
   }
 
-  // 3. Expiry Month & Year Combination Validation
-  const errorDateDisplay = document.getElementById('error-date');
-  const mmInt = parseInt(inputMM.value, 10);
-  
-  if (!inputMM.value.trim() || !inputYY.value.trim()) {
-    throwError([inputMM, inputYY], errorDateDisplay, "Can't be blank");
-    submissionIsValid = false;
-  } else if (isNaN(mmInt) || mmInt < 1 || mmInt > 12) {
-    throwError([inputMM, inputYY], errorDateDisplay, "Must be a valid month (01-12)");
-    submissionIsValid = false;
+  // Datum
+  const mm = inputMM.value.trim();
+  const yy = inputYY.value.trim();
+  const mmNum = parseInt(mm, 10);
+  const errorDateSpan = document.getElementById('error-date');
+
+  if (!mm || !yy) {
+    setError([inputMM, inputYY], errorDateSpan, "Can't be blank");
+    isValid = false;
+  } else if (mm.length !== 2 || yy.length !== 2 || isNaN(mmNum) || mmNum < 1 || mmNum > 12) {
+    setError([inputMM, inputYY], errorDateSpan, "Invalid date (MM 01-12, YY 00-99)");
+    isValid = false;
   } else {
-    clearError([inputMM, inputYY], errorDateDisplay);
+    clearError([inputMM, inputYY], errorDateSpan);
   }
 
-  // 4. Verification Security Code (CVC) Validation
-  if (!inputCVC.value.trim()) {
-    throwError(inputCVC, document.getElementById('error-cvc'), "Can't be blank");
-    submissionIsValid = false;
-  } else if (inputCVC.value.length < 3 || isNaN(inputCVC.value)) {
-    throwError(inputCVC, document.getElementById('error-cvc'), "Must be 3 numeric digits");
-    submissionIsValid = false;
+  // CVC
+  const cvc = inputCVC.value.trim();
+  if (!cvc) {
+    setError(inputCVC, document.getElementById('error-cvc'), "Can't be blank");
+    isValid = false;
+  } else if (!/^\d{3}$/.test(cvc)) {
+    setError(inputCVC, document.getElementById('error-cvc'), "Must be 3 digits");
+    isValid = false;
   } else {
     clearError(inputCVC, document.getElementById('error-cvc'));
   }
 
-  // Swap visible interface nodes if everything passes validation check parameters
-  if (submissionIsValid) {
+  if (isValid) {
     formElement.classList.add('element-hidden');
     successViewElement.classList.remove('element-hidden');
   }
 });
 
-// --- Application Return Initialization Loop ---
+// Continue dugme
 btnContinue.addEventListener('click', () => {
   formElement.reset();
-  displayName.textContent = "JANE APPLESEED";
-  displayNumber.textContent = "0000 0000 0000 0000";
-  displayMM.textContent = "00";
-  displayYY.textContent = "00";
-  displayCVC.textContent = "000";
-  
+  displayName.textContent = 'JANE APPLESEED';
+  displayNumber.textContent = '0000 0000 0000 0000';
+  displayDate.textContent = '00/00';
+  displayCVC.textContent = '000';
+
   successViewElement.classList.add('element-hidden');
   formElement.classList.remove('element-hidden');
+
+  document.querySelectorAll('.error-text').forEach(span => span.textContent = '');
+  document.querySelectorAll('.invalid-border').forEach(input => input.classList.remove('invalid-border'));
 });
 
- 
