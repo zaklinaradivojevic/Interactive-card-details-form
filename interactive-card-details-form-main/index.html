@@ -2,50 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Interactive card details form</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Card Details Form</title>
+  <!-- Google Fonts Connection -->
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <main class="app-container">
+    
+    <!-- Left Visual Display Section -->
+    <section class="left-panel">
+      <div class="cards-container">
+        <!-- Card Front -->
+        <div class="card-front">
+          <span class="circle"></span>
+          <span class="circle1"></span>
+          <p class="card-numer" id="display-number">9591 6489 6389 101E</p>
+          <p class="card-name" id="display-name">Felicia Leire</p>
+          <p class="card-date" id="display-mm-yy">09/00</p>
+        </div>
+        <!-- Card Back -->
+        <div class="card-back">
+          <p class="card-back-num" id="display-cvc">000</p>
+        </div>
+      </div>
+    </section>
 
-  0000 0000 0000 0000
-  Jane Appleseed
-  00/00
+    <!-- Right Interaction Control Section -->
+    <section class="right-panel">
+      <!-- Input Mode Form -->
+      <form id="card-form" class="card-form" novalidate>
+        <div class="field-group">
+          <label>Cardholder Name</label>
+          <input type="text" id="cardholder-name" placeholder="e.g. Felicia Leire" maxlength="30" autocomplete="off">
+          <span class="error-text" id="error-name"></span>
+        </div>
+        
+        <div class="field-group">
+          <label>Card Number</label>
+          <input type="text" id="card-number" placeholder="9591 6489 6389 101E" maxlength="19" autocomplete="off">
+          <span class="error-text" id="error-number"></span>
+        </div>
 
-  000
+        <div class="multipart-row">
+          <div class="field-group exp-group">
+            <label>Exp. Date (MM/YY)</label>
+            <div class="dual-inputs">
+              <input type="text" id="card-mm" placeholder="MM" maxlength="2" autocomplete="off">
+              <input type="text" id="card-yy" placeholder="YY" maxlength="2" autocomplete="off">
+            </div>
+            <span class="error-text" id="error-date"></span>
+          </div>
 
-  Cardholder Name
-  e.g. Jane Appleseed
+          <div class="field-group cvc-group">
+            <label>CVC</label>
+            <input type="text" id="card-cvc" placeholder="e.g. 123" maxlength="3" autocomplete="off">
+            <span class="error-text" id="error-cvc"></span>
+          </div>
+        </div>
+        
+        <button type="submit" class="action-btn" id="btn-submit">Confirm</button>
+      </form>
 
-  Card Number
-  e.g. 1234 5678 9123 0000
+      <!-- Success Layout Completed Screen -->
+      <div id="success-view" class="success-view element-hidden">
+        <div class="success-icon-badge">✓</div>
+        <h1 class="success-heading">Thank you!</h1>
+        <p class="success-subtext">We've added your card details</p>
+        <button type="button" class="action-btn" id="btn-continue">Continue</button>
+      </div>
+    </section>
 
-  Exp. Date (MM/YY)
-  MM
-  YY
-
-  CVC
-  e.g. 123
-
-  Confirm
-
-  <!-- Completed state start -->
-
-  Thank you!
-  We've added your card details
-  Continue
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
+  </main>
 </body>
 </html>
