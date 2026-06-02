@@ -4,36 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Card Details Form</title>
-  <!-- Google Fonts Connection -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="app-container">
-    
-    <!-- Left Visual Display Section -->
     <section class="left-panel">
       <div class="cards-container">
-        <!-- Card Front -->
         <div class="card-front">
           <span class="circle"></span>
           <span class="circle1"></span>
-          <p class="card-numer" id="display-number">9591 6489 6389 101E</p>
-          <p class="card-name" id="display-name">Felicia Leire</p>
-          <p class="card-date" id="display-mm-yy">09/00</p>
+          <p class="card-numer" id="display-number">0000 0000 0000 0000</p>
+          <p class="card-name" id="display-name">JANE APPLESEED</p>
+          <p class="card-date" id="display-date">00/00</p>
         </div>
-        <!-- Card Back -->
         <div class="card-back">
           <p class="card-back-num" id="display-cvc">000</p>
         </div>
       </div>
     </section>
 
-    <!-- Right Interaction Control Section -->
     <section class="right-panel">
-      <!-- Input Mode Form -->
       <form id="card-form" class="card-form" novalidate>
         <div class="field-group">
           <label>Cardholder Name</label>
@@ -43,7 +36,7 @@
         
         <div class="field-group">
           <label>Card Number</label>
-          <input type="text" id="card-number" placeholder="9591 6489 6389 101E" maxlength="19" autocomplete="off">
+          <input type="text" id="card-number" placeholder="e.g. 1234 5678 9012 3456" maxlength="19" autocomplete="off">
           <span class="error-text" id="error-number"></span>
         </div>
 
@@ -67,7 +60,6 @@
         <button type="submit" class="action-btn" id="btn-submit">Confirm</button>
       </form>
 
-      <!-- Success Layout Completed Screen -->
       <div id="success-view" class="success-view element-hidden">
         <div class="success-icon-badge">✓</div>
         <h1 class="success-heading">Thank you!</h1>
@@ -75,7 +67,6 @@
         <button type="button" class="action-btn" id="btn-continue">Continue</button>
       </div>
     </section>
-
   </main>
   <script src="index.js"></script>
 </body>
