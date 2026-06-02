@@ -6,6 +6,7 @@
   --dark-grayish-violet: hsl(279, 6%, 55%);
   --very-dark-violet: hsl(278, 68%, 11%);
   --body-font-size: clamp(0.875rem, 2vw, 1.125rem); /* 14px–18px */
+   --card-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.15);   /* 0 24px 48px */
 }
 
 * {
@@ -71,7 +72,7 @@ body {
   height: auto;
   aspect-ratio: 447 / 245;  /* održava proporciju */
   border-radius: 0.75rem;
-  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.15);
+  box-shadow: var(--card-shadow);   /* umesto fiksne vrednosti */
   color: var(--neutral-white);
   position: relative;
 }
